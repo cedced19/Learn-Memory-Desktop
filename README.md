@@ -6,7 +6,7 @@ A Node-Webkit software to learn your lesson.
 
 ## Instalation
 
-1. [Download for Windows](https://raw.githubusercontent.com/cedced19/Learn-Memory-Desktop/master/dist/Learn-Memory.zip)
+1. [Download for Windows](https://raw.githubusercontent.com/cedced19/Learn-Memory-Desktop/master/dist/Windows.zip)
 2. Extract
 3. Execute `Learn-Memory.exe`
 
@@ -26,7 +26,6 @@ The save is located at the same place of `.rc` files
 
 ### To compile
 
-1. Download a version of [node-webkit](https://github.com/nwjs/nw.js)
-2. Move it in the folder `resources/node-webkit/OS NAME`
-3. Do `npm install && cd app/ && npm install && cd ../`
-4. Do either `grunt dist-linux` or `grunt dist-linux32` or `grunt dist-win` or `grunt dist-mac`
+
+1. Do `npm install && cd app/ && npm install && cd ../`
+2. Do `node build.js`

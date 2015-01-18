@@ -7,16 +7,19 @@ var   app = require('express')(),
 
 var orm = new Waterline();
 
+var win = process.platform === "win32";
+var home = win ? process.env.USERPROFILE : process.env.HOME;
+
 var config = {
   adapters: {
     'default': diskAdapter,
     disk: diskAdapter
   },
   connections: {
-      save: {
+      'learn-memory': {
           adapter: 'disk',
-          filePath: process.env.USERPROFILE + '/'
-      },
+          filePath: home + '/'
+      }
   },
   defaults: {
     migrate: 'alter'
@@ -26,7 +29,7 @@ var config = {
 var Lesson = Waterline.Collection.extend({
 
   identity: 'lesson',
-  connection: 'save',
+  connection: 'learn-memory',
 
   attributes: {
      content: 'string',

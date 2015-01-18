@@ -7,4 +7,5 @@ app/d3dcompiler_46.dll
 *.dat
 *.pak
 *.exe
-resources/node-webkit/Windows/credits.html
+cache/
+build/
