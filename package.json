@@ -2,18 +2,22 @@
   "name": "Learn-Memory-Desktop",
   "version": "0.0.1",
   "homepage": "https://github.com/cedced19/Learn-Memory-Desktop",
-    "bugs": "https://github.com/cedced19/Learn-Memory-Desktop/issues",
-    "author": {
-      "name": "Cédric",
-      "email": "cedced19@gmail.com",
-      "url": "https://github.com/cedced19"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git://github.com/cedced19/Learn-Memory-Desktop.git"
-    },
+  "bugs": "https://github.com/cedced19/Learn-Memory-Desktop/issues",
+  "author": {
+    "name": "Cédric",
+    "email": "cedced19@gmail.com",
+    "url": "https://github.com/cedced19"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cedced19/Learn-Memory-Desktop.git"
+  },
   "devDependencies": {
-    "node-webkit-builder": "1.0.6"
+    "gulp": "^3.8.10",
+    "gulp-util": "^3.0.2",
+    "gulp-zip": "^2.0.2",
+    "node-webkit-builder": "1.0.6",
+    "colors": "1.0.3"
   },
   "engines": {
     "node": ">=0.8.0"

@@ -28,4 +28,4 @@ The save is located at the same place of `.rc` files
 
 
 1. Do `npm install && cd app/ && npm install && cd ../`
-2. Do `node build.js`
+2. Do `gulp`
