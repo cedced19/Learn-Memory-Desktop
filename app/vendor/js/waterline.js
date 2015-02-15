@@ -3,7 +3,7 @@ var   app = require('express')(),
         Waterline = require('waterline'),
         diskAdapter = require('sails-disk'),
         bodyParser = require('body-parser'),
-        port = 9999;
+        port = 7772;
 
 var orm = new Waterline();
 

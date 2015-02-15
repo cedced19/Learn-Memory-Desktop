@@ -1,12 +1,10 @@
-# Learn-Memory
+# Learn Memory for Desktop
 
 A Node-Webkit software to learn your lesson.
 
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+## Installation
 
-## Instalation
-
-1. [Download for Windows](https://raw.githubusercontent.com/cedced19/Learn-Memory-Desktop/master/dist/Windows.zip)
+1. [Download for Windows](https://raw.githubusercontent.com/cedced19/learn-memory-desktop/master/dist/Windows.zip)
 2. Extract
 3. Execute `Learn-Memory.exe`
 
@@ -17,7 +15,7 @@ A Node-Webkit software to learn your lesson.
 
 ### API
 
-There are a Rest API on `http://localhost:9999/api/`.
+There are a Rest API on `http://localhost:7772/api/`.
 
 ### Save
 

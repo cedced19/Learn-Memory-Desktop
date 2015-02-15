@@ -18,7 +18,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
       });
 }])
 .controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$http', 'sweet', '$routeParams', 'marked', function($scope, $location, $http, sweet, $routeParams, marked) {
-        $http.get('http://localhost:9999/api/'+ $routeParams.id).success(function(data) {
+        $http.get('http://localhost:7772/api/'+ $routeParams.id).success(function(data) {
                         $scope.currentItem = data;
 
                         $scope.editing = false;
@@ -37,7 +37,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
                                         confirmButtonText: "Yes, delete it!",
                                         closeOnConfirm: false
                                     }, function() {
-                                        $http.delete('http://localhost:9999/api/'+$scope.currentItem.id).success(function() {
+                                        $http.delete('http://localhost:7772/api/'+$scope.currentItem.id).success(function() {
                                             sweet.show('Deleted!', 'The lesson has been deleted.', 'success');
                                             $location.path('/');
                                         });
@@ -51,7 +51,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
 
                         $scope.displayLesson = function() {
                                 $scope.displayPreview();
-                                $http.put('http://localhost:9999/api/'+$scope.currentItem.id, $scope.currentItem).success(function() {
+                                $http.put('http://localhost:7772/api/'+$scope.currentItem.id, $scope.currentItem).success(function() {
                                             $scope.editing = false;
                                             sweet.show('The lesson has been saved.', '', 'success');
                                 });
@@ -70,7 +70,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
 
         $scope.displayLesson = function() {
                 $scope.displayPreview();
-                $http.post('http://localhost:9999/api', $scope.newItem).success(function(data) {
+                $http.post('http://localhost:7772/api', $scope.newItem).success(function(data) {
                     sweet.show('The lesson has been saved.', '', 'success');
                     $location.path('/lesson/' + data.id.toString());
                     }).error(function() {
@@ -80,7 +80,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
 }])
 .controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', 'sweet', function($scope, $location, $http, sweet) {
         $scope.loading = true;
-        $http.get('http://localhost:9999/api').success(function(data) {
+        $http.get('http://localhost:7772/api').success(function(data) {
             $scope.loading = false;
             
             $scope.items = data;
