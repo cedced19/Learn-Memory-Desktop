@@ -1,4 +1,4 @@
-angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marked'])
+angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngular'])
 .config(['$routeProvider', function($routeProvider){
     $routeProvider
      .when('/lesson/:id', {
@@ -17,15 +17,11 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
         redirectTo: '/'
       });
 }])
-.controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$http', 'sweet', '$routeParams', 'marked', function($scope, $location, $http, sweet, $routeParams, marked) {
+.controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$http', 'sweet', '$routeParams', function($scope, $location, $http, sweet, $routeParams) {
         $http.get('http://localhost:7772/api/'+ $routeParams.id).success(function(data) {
                         $scope.currentItem = data;
 
                         $scope.editing = false;
-
-                         $scope.displayPreview = function() {
-                                   $scope.currentItem.content = marked($scope.currentItem.markdown);
-                         };
 
                         $scope.removeLesson = function() {
                                     sweet.show({
@@ -50,7 +46,6 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
 
 
                         $scope.displayLesson = function() {
-                                $scope.displayPreview();
                                 $http.put('http://localhost:7772/api/'+$scope.currentItem.id, $scope.currentItem).success(function() {
                                             $scope.editing = false;
                                             sweet.show('The lesson has been saved.', '', 'success');
@@ -58,18 +53,12 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
                  };
          });
 }])
-.controller('LearnMemoryCreationCtrl', ['$scope', '$location', '$http', 'sweet', 'marked', function($scope, $location, $http, sweet, marked) {
+.controller('LearnMemoryCreationCtrl', ['$scope', '$location', '$http', 'sweet', function($scope, $location, $http, sweet) {
         $scope.newItem = {
-                content: '',
-                markdown: ''
-        };
-
-        $scope.displayPreview = function() {
-                $scope.newItem.content = marked($scope.newItem.markdown);
+                content: ''
         };
 
         $scope.displayLesson = function() {
-                $scope.displayPreview();
                 $http.post('http://localhost:7772/api', $scope.newItem).success(function(data) {
                     sweet.show('The lesson has been saved.', '', 'success');
                     $location.path('/lesson/' + data.id.toString());
@@ -78,7 +67,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'hc.marke
                 });
         };
 }])
-.controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', 'sweet', function($scope, $location, $http, sweet) {
+.controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', function($scope, $location, $http) {
         $scope.loading = true;
         $http.get('http://localhost:7772/api').success(function(data) {
             $scope.loading = false;
