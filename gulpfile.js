@@ -7,7 +7,7 @@ var colors = require('colors');
 gulp.task('nw', function () {
 
     var nw = new builder({
-        files: './app/**/**',
+        files: './app/dist/**/**',
         platforms: ['win32', 'osx32', 'osx64', 'linux32', 'linux64']
     });
 

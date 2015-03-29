@@ -6,7 +6,7 @@ A Node-Webkit software to learn your lesson.
 
 1. [Download for Windows](https://raw.githubusercontent.com/cedced19/learn-memory-desktop/master/dist/Windows.zip)
 2. Extract
-3. Execute `Learn-Memory.exe`
+3. Execute `learn-memory.exe`
 
 ![Demo](demo.png)
 
@@ -21,9 +21,19 @@ There are a Rest API on `http://localhost:7772/api/`.
 
 The save is located at the same place of `.rc` files
 
-
 ### To compile
 
 
-1. Do `npm install && cd app/ && npm install && cd ../`
-2. Do `gulp`
+```bash
+cd app
+npm install
+grunt
+cd dist
+npm install
+cd ..
+cd ..
+npm install
+gulp
+```
+
+This will be optimized soon (grunt will be deleted).

@@ -70,12 +70,23 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
 .controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', function($scope, $location, $http) {
         $scope.loading = true;
         $http.get('http://localhost:7772/api').success(function(data) {
-            $scope.loading = false;
-            
             $scope.items = data;
+            $scope.short = true;
+            $scope.loading = false;
 
             $scope.goItem = function (item) {
                 $location.path('/lesson/' + item.id);
             };
+            
+            $scope.advancedSearch = function () {
+                $http.get('http://localhost:7772/api/long').success(function(data) {
+                    $scope.items = data;
+                    $scope.short = false;
+                }).error(function() {
+                    sweet.show('Oops...', 'Something went wrong!', 'error');
+                });
+            };
+        }).error(function() {
+            sweet.show('Oops...', 'Something went wrong!', 'error');
         });
 }]);
