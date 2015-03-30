@@ -1,13 +1,11 @@
 node_modules/
 tmp/
-app/node_modules/
-app/credits.html
-app/d3dcompiler_46.dll
+minified/node_modules/
 *.dll
 *.dat
 *.pak
 *.exe
 cache/
 build/
-app/dist/
-app/.tmp/
+.tmp/
+minified/

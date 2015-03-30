@@ -23,17 +23,7 @@ The save is located at the same place of `.rc` files
 
 ### To compile
 
-
 ```bash
-cd app
 npm install
 grunt
-cd dist
-npm install
-cd ..
-cd ..
-npm install
-gulp
 ```
-
-This will be optimized soon (grunt will be deleted).

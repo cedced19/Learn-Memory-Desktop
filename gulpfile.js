@@ -4,7 +4,7 @@ var gutil = require('gulp-util');
 var zip = require('gulp-zip');
 var colors = require('colors');
 
-gulp.task('nw', function () {
+gulp.task('nw', ['build'], function () {
 
     var nw = new builder({
         files: './app/dist/**/**',
@@ -18,12 +18,6 @@ gulp.task('nw', function () {
     return nw.build().catch(function (err) {
         gutil.log('\'' + 'node-webkit-builder'.cyan + '\':', err);
     });
-});
-
-gulp.task('dist-win', ['nw'], function () {
-    return gulp.src('build/Learn-Memory/win32/*')
-        .pipe(zip('Windows.zip'))
-        .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('dist-win', ['nw'], function () {

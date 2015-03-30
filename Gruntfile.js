@@ -12,7 +12,7 @@ module.exports = function(grunt) {
             'package.json',
             'favicon.png'
           ],
-          dest: 'dist/'
+          dest: 'minified/'
         }]
       }
     },
@@ -56,24 +56,37 @@ module.exports = function(grunt) {
                           },
                           post: {}
                       }
-                  }
+                  },
+                  dest: 'minified'
               }
           },
   usemin: {
-    html: 'dist/*.html'
+    html: 'minified/*.html'
   },
   htmlmin: {
-        dist: {
+        minified: {
           options: {
             removeComments: true,
             collapseWhitespace: true
           },
           files: {
-            'dist/index.html': 'dist/index.html',
-            'dist/vendor/views/lesson.html': 'dist/vendor/views/lesson.html',
-            'dist/vendor/views/creation.html': 'dist/vendor/views/creation.html',
-            'dist/vendor/views/list.html': 'dist/vendor/views/list.html'
+            'minified/index.html': 'minified/index.html',
+            'minified/vendor/views/lesson.html': 'minified/vendor/views/lesson.html',
+            'minified/vendor/views/creation.html': 'minified/vendor/views/creation.html',
+            'minified/vendor/views/list.html': 'minified/vendor/views/list.html'
           }
+      }
+  },
+  nodewebkit: {
+    options: {
+        platforms: ['win32','osx', 'linux'],
+        buildDir: './build', // Where the build version of my node-webkit app is saved
+    },
+    src: ['./minified/**/*'] // Your node-webkit app
+  },
+  'install-dependencies': {
+      options: {
+          cwd: './minified/'
       }
   }
 };
@@ -82,5 +95,5 @@ module.exports = function(grunt) {
 
   // Load all Grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-  grunt.registerTask('default', ['copy', 'useminPrepare', 'concat', 'uglify', 'uncss', 'autoprefixer', 'cssmin', 'usemin', 'htmlmin']);
+  grunt.registerTask('default', ['copy', 'useminPrepare', 'concat', 'uglify', 'uncss', 'autoprefixer', 'cssmin', 'usemin', 'htmlmin', 'install-dependencies', 'nodewebkit']);
 };
