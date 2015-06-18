@@ -1,0 +1,22 @@
+{
+    "main": "index.html",
+    "name": "learn-memory",
+    "version": "0.0.0",
+    "single-instance": true,
+    "window": {
+        "title": "Learn Memory",
+        "icon": "favicon.png",
+        "width": 750,
+        "height": 650,
+        "min_width": 750,
+        "min_height": 650,
+        "toolbar": false
+    },
+    "chromium-args": "--child-clean-exit",
+    "dependencies": {
+        "body-parser": "^1.10.1",
+        "express": "^4.11.0",
+        "sails-disk": "^0.10.4",
+        "waterline": "^0.10.12"
+    }
+}

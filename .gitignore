@@ -1,6 +1,6 @@
 node_modules/
 tmp/
-minified/node_modules/
+minified/
 *.dll
 *.dat
 *.pak

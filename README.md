@@ -25,5 +25,5 @@ The save is located at the same place of `.rc` files
 
 ```bash
 npm install
-grunt
+gulp
 ```
