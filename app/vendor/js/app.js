@@ -77,7 +77,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
             $scope.goItem = function (item) {
                 $location.path('/lesson/' + item.id);
             };
-            
+
             $scope.advancedSearch = function () {
                 $http.get('http://localhost:7772/api/long').success(function(data) {
                     $scope.items = data;

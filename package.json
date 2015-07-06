@@ -1,5 +1,6 @@
 {
   "name": "learn-memory-desktop",
+  "version": "0.0.3",
   "devDependencies": {
     "colors": "1.0.3",
     "gulp": "^3.8.10",

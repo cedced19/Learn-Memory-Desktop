@@ -1,7 +1,7 @@
 {
     "main": "index.html",
     "name": "learn-memory",
-    "version": "0.0.0",
+    "version": "0.0.3",
     "single-instance": true,
     "window": {
         "title": "Learn Memory",

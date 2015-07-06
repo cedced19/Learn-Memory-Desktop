@@ -4,7 +4,7 @@ A Node-Webkit software to learn your lesson.
 
 ## Installation
 
-1. [Download for Windows](https://raw.githubusercontent.com/cedced19/learn-memory-desktop/master/dist/Windows.zip)
+1. [Download](https://raw.githubusercontent.com/cedced19/learn-memory-desktop/master/dist/Windows.zip)
 2. Extract
 3. Execute `learn-memory.exe`
 
@@ -17,13 +17,14 @@ A Node-Webkit software to learn your lesson.
 
 There are a Rest API on `http://localhost:7772/api/`.
 
-### Save
-
-The save is located at the same place of `.rc` files
-
 ### To compile
 
-```bash
+```
+npm install
+gulp dist-win
+```
+or
+```
 npm install
 gulp
 ```

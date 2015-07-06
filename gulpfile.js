@@ -98,33 +98,33 @@ gulp.task('nw-win', ['minify', 'install'], function () {
 
 
 gulp.task('dist-win', ['nw-win'], function () {
-    return gulp.src('build/dixit-desktop/win32/**/**')
+    return gulp.src('build/learn-memory/win32/**/**')
         .pipe(zip('Windows.zip'))
         .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('dist-osx32', ['nw'], function () {
-    return gulp.src('build/dixit-desktop/osx32/**/**')
+    return gulp.src('build/learn-memory/osx32/**/**')
         .pipe(zip('OSX32.zip'))
         .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('dist-osx64', ['nw'], function () {
-    return gulp.src('build/dixit-desktop/osx64/**/**')
+    return gulp.src('build/learn-memory/osx64/**/**')
         .pipe(zip('OSX64.zip'))
         .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('dist-linux32', ['nw'], function () {
-    return gulp.src('build/dixit-desktop/linux32/**/**')
+    return gulp.src('build/learn-memory/linux32/**/**')
         .pipe(zip('Linux32.zip'))
         .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('dist-linux64', ['nw'], function () {
-    return gulp.src('build/dixit-desktop/linux64/**/**')
+    return gulp.src('build/learn-memory/linux64/**/**')
         .pipe(zip('Linux64.zip'))
         .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('default', ['dist-win', 'dist-osx64', 'dist-osx32', 'dist-linux64', 'dist-linux32']);
+gulp.task('default', ['dist-osx64', 'dist-osx32', 'dist-linux64', 'dist-linux32']);

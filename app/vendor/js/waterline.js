@@ -3,11 +3,12 @@ var app = require('express')(),
     Waterline = require('waterline'),
     diskAdapter = require('sails-disk'),
     bodyParser = require('body-parser'),
+    path =require('path'),
+    dir = path.dirname(process.execPath) + '/',
     port = 7772;
 
 var orm = new Waterline();
 
-var home = (process.platform === 'win32') ? process.env.USERPROFILE : process.env.HOME;
 
 var config = {
     adapters: {
@@ -15,10 +16,10 @@ var config = {
         disk: diskAdapter
     },
     connections: {
-        'learn-memory': {
+        save: {
             adapter: 'disk',
-            filePath: home + '/'
-        }
+            filePath: dir
+        },
     },
     defaults: {
         migrate: 'alter'
@@ -26,9 +27,8 @@ var config = {
 };
 
 var Lesson = Waterline.Collection.extend({
-
     identity: 'lesson',
-    connection: 'learn-memory',
+    connection: 'save',
 
     attributes: {
         content: 'string',
@@ -93,6 +93,13 @@ app.put('/api/:id', function(req, res) {
 
     app.models.lesson.update({ id: req.params.id }, req.body, function(err, model) {
         if(err) return res.status(500).json({err: err})
+        res.json(model);
+    });
+});
+
+app.post('/api', function(req, res) {
+    app.models.lesson.create(req.body, function(err, model) {
+        if(err) return res.status(500).json({ err : err});
         res.json(model);
     });
 });
