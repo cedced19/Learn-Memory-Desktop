@@ -4,7 +4,7 @@ A Node-Webkit software to learn your lesson.
 
 ## Installation
 
-1. [Download](https://raw.githubusercontent.com/cedced19/learn-memory-desktop/master/dist/Windows.zip)
+1. [Download](https://github.com/cedced19/learn-memory-desktop/releases/latest)
 2. Extract
 3. Execute `learn-memory.exe`
 
