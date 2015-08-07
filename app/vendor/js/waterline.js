@@ -1,8 +1,8 @@
 'use strict';
-var app = require('express')(),
-    Waterline = require('waterline'),
-    diskAdapter = require('sails-disk'),
-    bodyParser = require('body-parser'),
+var app = require('./node_modules/express')(),
+    Waterline = require('./node_modules/waterline'),
+    diskAdapter = require('./node_modules/sails-disk'),
+    bodyParser = require('./node_modules/body-parser'),
     path =require('path'),
     dir = path.dirname(process.execPath) + '/',
     port = 7772;
@@ -46,13 +46,14 @@ app.get('/api', function(req, res) {
         if(err) return res.status(500).json({ err : err});
         // Don't download useless data
         models.forEach(function(item){
-            item.content = item.content
-                .replace(new RegExp('&#39;', 'gi'), '\'')
-                .replace(new RegExp('\n', 'gi'), ' ')
-                .replace(new RegExp('<.[^>]*>', 'gi' ), '')
-                .replace(new RegExp('&quot;', 'gi'), '"');
-            item.content = item.content.substring(0,100);
+            item.keywords = item.content
+                    .replace(/&#39;/gi, '\'')
+                    .replace(/\n/gi, ' ')
+                    .replace(/<.[^>]*>/gi, '')
+                    .replace(/&quot/gi, '"')
+                    .substring(0, 100);
             delete item.createdAt;
+            delete item.content;
         });
         res.json(models);
     });
@@ -63,11 +64,12 @@ app.get('/api/long', function(req, res) {
         if(err) return res.status(500).json({ err : err});
         // Don't download useless data
         models.forEach(function(item){
-            item.content = item.content
-                .replace(new RegExp('&#39;', 'gi'), '\'')
-                .replace(new RegExp('\n', 'gi'), ' ')
-                .replace(new RegExp('<.[^>]*>', 'gi' ), '')
-                .replace(new RegExp('&quot;', 'gi'), '"');
+            item.keywords = item.content
+                    .replace(/&#39;/gi, '\'')
+                    .replace(/\n/gi, ' ')
+                    .replace(/<.[^>]*>/gi, '')
+                    .replace(/&quot/gi, '"')
+                    .substring(0, 100);
         });
         res.json(models);
     });

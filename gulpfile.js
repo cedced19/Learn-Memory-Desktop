@@ -17,8 +17,8 @@ gulp.task('copy-favicon', function() {
     .pipe(gulp.dest('minified'));
 });
 
-gulp.task('copy-waterline', function() {
-  gulp.src('app/vendor/js/waterline.js')
+gulp.task('copy-server', function() {
+  gulp.src('app/vendor/js/server.js')
     .pipe(gulp.dest('minified/vendor/js'));
 });
 
@@ -54,7 +54,7 @@ gulp.task('css', ['html'], function () {
         .pipe(gulp.dest('minified/vendor/css'));
 });
 
-gulp.task('minify', ['css', 'copy-favicon', 'copy-package', 'copy-fonts', 'copy-waterline']);
+gulp.task('minify', ['css', 'copy-favicon', 'copy-package', 'copy-fonts', 'copy-server']);
 
 gulp.task('install', function () {
     if (!fs.existsSync('minified/node_modules')) {

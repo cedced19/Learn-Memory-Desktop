@@ -1,6 +1,6 @@
 # Learn Memory for Desktop
 
-A Node-Webkit software to learn your lesson.
+A software to learn your lesson on your computer or [other](#api).
 
 ## Installation
 
@@ -10,14 +10,17 @@ A Node-Webkit software to learn your lesson.
 
 ![Demo](demo.png)
 
-
-## Developers
-
-### API
+## API
 
 There are a Rest API on `http://localhost:7772/api/`.
 
-### To compile
+You can use a [application](https://github.com/cedced19/learn-memory-mobile)  to show you your lessons on your mobile phone online and __offline__.
+
+There are two solution to get lessons on this application:
+* redirect ports on your computer and get your global ip
+* be on the same wifi as your computer and get its local ip
+
+## To compile
 
 ```
 npm install
