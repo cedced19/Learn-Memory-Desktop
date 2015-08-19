@@ -1,78 +1,111 @@
 angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngular'])
 .config(['$routeProvider', function($routeProvider){
-    $routeProvider
-     .when('/lesson/:id', {
-      templateUrl: 'vendor/views/lesson.html',
-      controller: 'LearnMemoryLessonCtrl'
-    })
-     .when('/', {
-      templateUrl: 'vendor/views/list.html',
-      controller: 'LearnMemoryListCtrl'
-    })
-    .when('/creation', {
-      templateUrl: 'vendor/views/creation.html',
-      controller: 'LearnMemoryCreationCtrl'
-    })
-    .otherwise({
-        redirectTo: '/'
-      });
+        $routeProvider
+        .when('/lesson/:id', {
+            templateUrl: 'vendor/views/lesson.html',
+            controller: 'LearnMemoryLessonCtrl'
+        })
+        .when('/', {
+            templateUrl: 'vendor/views/list.html',
+            controller: 'LearnMemoryListCtrl'
+        })
+        .when('/creation', {
+            templateUrl: 'vendor/views/creation.html',
+            controller: 'LearnMemoryCreationCtrl'
+        })
+        .otherwise({
+            redirectTo: '/'
+        });
 }])
-.controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$http', 'sweet', '$routeParams', function($scope, $location, $http, sweet, $routeParams) {
+.directive('toolbarTip', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            $(element).toolbar(scope.$eval(attrs.toolbarTip));
+        }
+    };
+})
+.controller('LearnMemoryLessonCtrl', ['$scope', '$location', '$http', '$routeParams', '$rootScope', 'sweet', function($scope, $location, $http, $routeParams, $rootScope, sweet) {
+        $rootScope.$location = $location;
+        $rootScope.nav = 'lesson';
+
         $http.get('http://localhost:7772/api/'+ $routeParams.id).success(function(data) {
-                        $scope.currentItem = data;
+            $scope.currentItem = data;
 
-                        $scope.editing = false;
+            $scope.editing = false;
 
-                        $scope.removeLesson = function() {
-                                    sweet.show({
-                                        title: 'Confirm',
-                                        text: 'Delete this lesson?',
-                                        type: 'warning',
-                                        showCancelButton: true,
-                                        confirmButtonColor: '#DD6B55',
-                                        confirmButtonText: "Yes, delete it!",
-                                        closeOnConfirm: false
-                                    }, function() {
-                                        $http.delete('http://localhost:7772/api/'+$scope.currentItem.id).success(function() {
-                                            sweet.show('Deleted!', 'The lesson has been deleted.', 'success');
-                                            $location.path('/');
-                                        });
-                                    });
-                        };
+            $scope.removeLesson = function() {
+                sweet.show({
+                    title: 'Confirm',
+                    text: 'Delete this lesson?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Yes, delete it!',
+                    closeOnConfirm: false
+                }, function() {
+                    $http.delete('http://localhost:7772/api/'+$scope.currentItem.id).success(function() {
+                        sweet.show('Deleted!', 'The lesson has been deleted.', 'success');
+                        $location.path('/');
+                    }).error(function() {
+                        sweet.show('Oops...', 'Something went wrong!', 'error');
+                    });
+                });
+            };
 
-                        $scope.print = function() {
-                                window.print();
-                        };
+            $scope.print = function() {
+                window.print();
+            };
 
+            $scope.displayLesson = function() {
+                $http.put('http://localhost:7772/api/'+$scope.currentItem.id, $scope.currentItem).success(function() {
+                    $scope.editing = false;
+                    sweet.show('The lesson has been saved.', '', 'success');
+                }).error(function() {
+                    sweet.show('Oops...', 'Something went wrong!', 'error');
+                });
+            };
 
-                        $scope.displayLesson = function() {
-                                $http.put('http://localhost:7772/api/'+$scope.currentItem.id, $scope.currentItem).success(function() {
-                                            $scope.editing = false;
-                                            sweet.show('The lesson has been saved.', '', 'success');
-                                });
-                 };
-         });
+            document.getElementById('lesson-content').onclick = function (e) {
+                e = e || window.event;
+                var element = e.target || e.srcElement;
+
+                if (element.tagName == 'A') {
+                    require('nw.gui').Shell.openExternal(element.href);
+                    return false;
+                }
+            };
+        }).error(function() {
+            sweet.show('Oops...', 'Something went wrong!', 'error');
+            $location.path('/');
+        });
 }])
-.controller('LearnMemoryCreationCtrl', ['$scope', '$location', '$http', 'sweet', function($scope, $location, $http, sweet) {
+.controller('LearnMemoryCreationCtrl', ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
+        $rootScope.$location = $location;
+        $rootScope.nav = 'creation';
+
         $scope.newItem = {
-                content: ''
+            content: ''
         };
 
         $scope.displayLesson = function() {
-                $http.post('http://localhost:7772/api', $scope.newItem).success(function(data) {
-                    sweet.show('The lesson has been saved.', '', 'success');
-                    $location.path('/lesson/' + data.id.toString());
-                    }).error(function() {
-                    sweet.show('Oops...', 'Something went wrong!', 'error');
-                });
+            $http.post('http://localhost:7772/api', $scope.newItem).success(function(data) {
+                sweet.show('The lesson has been saved.', '', 'success');
+                $location.path('/lesson/' + data.id.toString());
+            }).error(function() {
+                sweet.show('Oops...', 'Something went wrong!', 'error');
+            });
         };
 }])
-.controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', function($scope, $location, $http) {
-        $scope.loading = true;
+.controller('LearnMemoryListCtrl', ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
+        $rootScope.$location = $location;
+        $rootScope.nav = 'list';
+        $rootScope.loading = true;
+
         $http.get('http://localhost:7772/api').success(function(data) {
+            $rootScope.loading = false;
             $scope.items = data;
             $scope.short = true;
-            $scope.loading = false;
 
             $scope.goItem = function (item) {
                 $location.path('/lesson/' + item.id);

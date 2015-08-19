@@ -9,7 +9,6 @@ var app = require('./node_modules/express')(),
 
 var orm = new Waterline();
 
-
 var config = {
     adapters: {
         'default': diskAdapter,

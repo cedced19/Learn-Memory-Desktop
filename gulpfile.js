@@ -18,7 +18,7 @@ gulp.task('copy-favicon', function() {
 });
 
 gulp.task('copy-server', function() {
-  gulp.src('app/vendor/js/server.js')
+  gulp.src('app/vendor/js/waterline.js')
     .pipe(gulp.dest('minified/vendor/js'));
 });
 
@@ -44,12 +44,18 @@ gulp.task('html', function () {
         .pipe(gulp.dest('minified'));
 });
 
-gulp.task('css', ['html'], function () {
-    return gulp.src('app/vendor/css/*.css')
+gulp.task('uncss', function () {
+    return gulp.src(['app/vendor/css/*.css', '!app/vendor/css/main.css'])
         .pipe(concat('styles.css'))
         .pipe(uncss({
             html: ['app/uncss.html']
         }))
+        .pipe(gulp.dest('minified/vendor/css'));
+});
+
+gulp.task('css', ['uncss', 'html'], function () {
+    return gulp.src(['minified/vendor/css/styles.css', 'app/vendor/css/main.css'])
+        .pipe(concat('styles.css'))
         .pipe(minifyCss())
         .pipe(gulp.dest('minified/vendor/css'));
 });
