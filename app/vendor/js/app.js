@@ -2,31 +2,30 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
 .config(['$routeProvider', function($routeProvider){
         $routeProvider
         .when('/', {
-            templateUrl: 'vendor/views/lesson-list.html',
-            controller: 'LearnMemoryLessonListCtrl'
+            templateUrl: 'vendor/views/lessons-list.html',
+            controller: 'LearnMemoryLessonsListCtrl'
         })
         .when('/lessons/new', {
-            templateUrl: 'vendor/views/lesson-new.html',
-            controller: 'LearnMemoryLessonNewCtrl'
+            templateUrl: 'vendor/views/lessons-new.html',
+            controller: 'LearnMemoryLessonsNewCtrl'
         })
         .when('/lessons/:id', {
-            templateUrl: 'vendor/views/lesson-id.html',
-            controller: 'LearnMemoryLessonIdCtrl'
+            templateUrl: 'vendor/views/lessons-id.html',
+            controller: 'LearnMemoryLessonsIdCtrl'
         })
         .otherwise({
             redirectTo: '/'
         });
-}])
-.directive('toolbarTip', function() {
+}]).run(['$rootScope', '$location', function($rootScope, $location){
+    $rootScope.$location = $location;
+}]).directive('toolbarTip', function() {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
             $(element).toolbar(scope.$eval(attrs.toolbarTip));
         }
     };
-})
-.controller('LearnMemoryLessonIdCtrl', ['$scope', '$location', '$http', '$routeParams', '$rootScope', 'sweet', function($scope, $location, $http, $routeParams, $rootScope, sweet) {
-        $rootScope.$location = $location;
+}).controller('LearnMemoryLessonsIdCtrl', ['$scope', '$location', '$http', '$routeParams', '$rootScope', 'sweet', function($scope, $location, $http, $routeParams, $rootScope, sweet) {
         $rootScope.nav = 'lesson';
 
         $http.get('http://localhost:7772/api/'+ $routeParams.id).success(function(data) {
@@ -79,9 +78,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
             sweet.show('Oops...', 'Something went wrong!', 'error');
             $location.path('/');
         });
-}])
-.controller('LearnMemoryLessonNewCtrl', ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
-        $rootScope.$location = $location;
+}]).controller('LearnMemoryLessonsNewCtrl', ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
         $rootScope.nav = 'creation';
 
         $scope.newLesson = {
@@ -96,9 +93,7 @@ angular.module('LearnMemory', ['hSweetAlert', 'ngSanitize', 'ngRoute', 'textAngu
                 sweet.show('Oops...', 'Something went wrong!', 'error');
             });
         };
-}])
-.controller('LearnMemoryLessonListCtrl', ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
-        $rootScope.$location = $location;
+}]).controller('LearnMemoryLessonsListCtrl', ['$scope', '$location', '$http', '$rootScope', 'sweet', function($scope, $location, $http, $rootScope, sweet) {
         $rootScope.nav = 'list';
         $rootScope.loading = true;
 
